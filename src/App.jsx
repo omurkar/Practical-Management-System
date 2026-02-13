@@ -1,11 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import app from './firebase';
 import FirebaseError from './components/FirebaseError';
 
 // Pages
 import Home from './pages/Home';
-import About from './pages/About'; // 1. Import the About Page
+import About from './pages/About';
 import AdminLogin from './pages/Admin/AdminLogin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import TeacherLogin from './pages/Teacher/TeacherLogin';
@@ -14,6 +14,26 @@ import ExamWizard from './pages/Teacher/ExamWizard';
 import Monitor from './pages/Teacher/Monitor';
 import StudentLogin from './pages/Student/StudentLogin';
 import ExamInterface from './pages/Student/ExamInterface';
+
+// Simple Navigation Component
+const Navbar = () => (
+  <nav style={{ 
+    padding: '1rem 2rem', 
+    display: 'flex', 
+    justifyContent: 'space-between', 
+    alignItems: 'center',
+    background: '#fff',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)' 
+  }}>
+    <Link to="/" style={{ fontWeight: 'bold', fontSize: '1.2rem', textDecoration: 'none', color: '#333' }}>
+      PMS
+    </Link>
+    <div style={{ display: 'flex', gap: '20px' }}>
+      <Link to="/" style={{ textDecoration: 'none', color: '#666' }}>Home</Link>
+      <Link to="/about" style={{ textDecoration: 'none', color: '#666' }}>About</Link>
+    </div>
+  </nav>
+);
 
 function App() {
   // Check if Firebase is properly initialized
@@ -24,9 +44,12 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        {/* The Navbar stays visible across all routes */}
+        <Navbar />
+        
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} /> {/* 2. Add the Route here */}
+          <Route path="/about" element={<About />} />
           
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
