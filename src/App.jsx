@@ -5,6 +5,7 @@ import FirebaseError from './components/FirebaseError';
 
 // Pages
 import Home from './pages/Home';
+import About from './pages/About'; // 1. Import the About Page
 import AdminLogin from './pages/Admin/AdminLogin';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import TeacherLogin from './pages/Teacher/TeacherLogin';
@@ -25,6 +26,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} /> {/* 2. Add the Route here */}
           
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
@@ -49,4 +51,3 @@ function App() {
 }
 
 export default App;
-
