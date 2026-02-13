@@ -15,60 +15,65 @@ const Navbar = () => {
     }
   };
 
-  // If no user is logged in, you might want to show a basic navbar or nothing.
-  // Currently set to return null based on your snippet, but often a basic logo is better.
+  // 1. PUBLIC VIEW (If user is NOT logged in)
   if (!currentUser) {
     return (
-      <nav className="bg-blue-600 text-white shadow-md">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-          <Link to="/" className="text-xl font-bold">PMS</Link>
-          <div className="space-x-4">
-            <Link to="/" className="hover:text-blue-200">Home</Link>
-            <Link to="/about" className="hover:text-blue-200">About</Link>
+      <nav className="bg-blue-600 text-white shadow-lg sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex justify-between items-center">
+            <Link to="/" className="text-xl font-bold hover:text-blue-100 transition">
+              PMS
+            </Link>
+            <div className="flex items-center gap-6">
+              <Link to="/" className="hover:text-blue-200 font-medium">Home</Link>
+              <Link to="/about" className="hover:text-blue-200 font-medium">About</Link>
+              <Link to="/teacher/login" className="bg-white text-blue-600 px-4 py-1.5 rounded font-bold hover:bg-gray-100 transition text-sm">
+                Login
+              </Link>
+            </div>
           </div>
         </div>
       </nav>
     );
   }
 
+  // 2. LOGGED IN VIEW (Admin or Teacher)
   return (
     <nav className="bg-blue-600 text-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
-          {/* Logo / Brand */}
-          <Link to="/" className="text-xl font-bold hover:text-blue-100 transition">
+          <Link to="/" className="text-xl font-bold">
             PMS - Practical Management System
           </Link>
           
-          <div className="flex items-center gap-6">
-            <Link to="/" className="hover:text-blue-200 font-medium">Home</Link>
-            <Link to="/about" className="hover:text-blue-200 font-medium">About</Link>
-
-            {/* Admin Dashboard Link */}
+          <div className="flex items-center gap-4">
+            {/* Show Admin Dashboard Link */}
             {userRole === 'admin' && (
-              <Link to="/admin/dashboard" className="hover:text-blue-200 font-medium">
+              <Link 
+                to="/admin/dashboard"
+                className="hover:text-blue-200 font-medium"
+              >
                 Admin Dashboard
               </Link>
             )}
             
-            {/* Teacher Dashboard Link */}
+            {/* Show Teacher Dashboard Link */}
             {userRole === 'teacher' && (
               <Link to="/teacher/dashboard" className="hover:text-blue-200 font-medium">
                 Dashboard
               </Link>
             )}
 
-            {/* User Info & Logout */}
             <div className="flex items-center gap-3 bg-blue-700 px-3 py-1.5 rounded-lg">
-              <span className="text-sm font-medium border-r border-blue-500 pr-3">
+                <span className="text-sm border-r border-blue-500 pr-3">
                 {currentUser.email || currentUser.name || 'User'}
-              </span>
-              <button
+                </span>
+                <button
                 onClick={handleLogout}
-                className="text-sm font-bold text-white hover:text-red-200 transition"
-              >
+                className="text-sm font-bold hover:text-red-200 transition"
+                >
                 Logout
-              </button>
+                </button>
             </div>
           </div>
         </div>
