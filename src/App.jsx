@@ -76,7 +76,6 @@
 // export default App;
 
 
-
 import React from 'react';
 import { 
   ShieldCheck, 
@@ -88,7 +87,7 @@ import {
   Mail,
   ArrowLeft
 } from 'lucide-react';
-import Link from 'next/link'; // Assuming you are using Next.js
+import { Link } from 'react-router-dom'; // Corrected import for React Router
 
 const About = () => {
   return (
@@ -100,7 +99,7 @@ const About = () => {
         <div className="text-xl font-bold tracking-tighter text-white">
             NEXT<span className="text-blue-500">SOLVES</span>
         </div>
-        <Link href="/" className="text-sm text-gray-400 hover:text-white flex items-center gap-2">
+        <Link to="/" className="text-sm text-gray-400 hover:text-white flex items-center gap-2">
             <ArrowLeft size={16} /> Back to Home
         </Link>
       </nav>
@@ -204,6 +203,40 @@ const About = () => {
                  <p className="text-xl text-blue-100 italic mb-4">"The system is perfectly stable and has replaced our manual logs completely."</p>
                  <div className="font-bold text-white">Mr. Vijay Rawool</div>
                  <div className="text-blue-400 text-sm">IT HOD & IQAC Head, Thakur Shyamnarayan College</div>
+            </div>
+            
+            {/* CONTACT SECTION */}
+            <div className="mt-16 border-t border-gray-800 pt-10">
+                <h2 className="text-2xl font-bold text-white mb-8">Contact Us</h2>
+                <div className="grid md:grid-cols-2 gap-8 text-left max-w-2xl mx-auto">
+                    <div className="space-y-4 text-center md:text-left">
+                        <h4 className="text-white font-bold text-lg">Om Murkar</h4>
+                        <div className="flex items-center justify-center md:justify-start gap-3 text-gray-400">
+                            <Phone size={18} className="text-blue-500" />
+                            <span>+91 9136234409</span>
+                        </div>
+                        <div className="flex items-center justify-center md:justify-start gap-3 text-gray-400">
+                            <Mail size={18} className="text-blue-500" />
+                            <a href="mailto:ommurkar34@gmail.com" className="hover:text-blue-400">ommurkar34@gmail.com</a>
+                        </div>
+                    </div>
+
+                    <div className="space-y-4 text-center md:text-left">
+                        <h4 className="text-white font-bold text-lg">Jagruti Morvekar</h4>
+                        <div className="flex items-center justify-center md:justify-start gap-3 text-gray-400">
+                            <Phone size={18} className="text-blue-500" />
+                            <span>+91 9321632938</span>
+                        </div>
+                        <div className="flex items-center justify-center md:justify-start gap-3 text-gray-400">
+                            <Mail size={18} className="text-blue-500" />
+                            <a href="mailto:jagrutimorvekar@gmail.com" className="hover:text-blue-400">jagrutimorvekar@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="mt-16 text-sm text-gray-600">
+                Copyright © 2026 Nextsolves. All Rights Reserved.
             </div>
         </div>
       </div>
