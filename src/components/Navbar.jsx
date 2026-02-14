@@ -104,43 +104,10 @@ const Navbar = () => {
     }
   };
 
-  // Check if the user is a Student OR is on the Student Login Page
-  const isStudentMode = (currentUser && userRole === 'student') || location.pathname === '/student/login';
-
-  // --- 🔒 RESTRICTED VIEW (Student Mode) ---
-  if (isStudentMode) {
-    return (
-      <nav className="bg-blue-600 text-white shadow-lg sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex justify-between items-center">
-            {/* Brand - Non-clickable (Text Only) so they can't go Home */}
-            <span className="text-xl font-bold cursor-default select-none">
-              PMS
-            </span>
-            
-            <div className="flex items-center gap-6">
-              {/* Only About Link is allowed */}
-              <Link to="/about" className="hover:text-blue-200 font-medium">About</Link>
-
-              {/* Show Logout ONLY if actually logged in */}
-              {currentUser && (
-                <div className="flex items-center gap-3 bg-blue-700 px-3 py-1.5 rounded-lg">
-                  <span className="text-sm border-r border-blue-500 pr-3">
-                    {currentUser.email || currentUser.name || 'Student'}
-                  </span>
-                  <button
-                    onClick={handleLogout}
-                    className="text-sm font-bold hover:text-red-200 transition"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </nav>
-    );
+  // --- 🔒 STUDENT RESTRICTION ---
+  // If the user is anywhere on the /student paths (login or exam), hide the navbar completely!
+  if (location.pathname.startsWith('/student')) {
+    return null;
   }
 
   // --- 🌍 STANDARD VIEW (Public / Teacher / Admin) ---
@@ -148,7 +115,6 @@ const Navbar = () => {
     <nav className="bg-blue-600 text-white shadow-lg sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
-          {/* Brand - Clickable for everyone else */}
           <Link to="/" className="text-xl font-bold hover:text-blue-100 transition">
             PMS - Practical Management System
           </Link>
@@ -157,22 +123,19 @@ const Navbar = () => {
             <Link to="/" className="hover:text-blue-200 font-medium">Home</Link>
             <Link to="/about" className="hover:text-blue-200 font-medium">About</Link>
 
-            {/* Admin Dashboard Link */}
             {currentUser && userRole === 'admin' && (
               <Link to="/admin/dashboard" className="hover:text-blue-200 font-medium">
                 Admin Dashboard
               </Link>
             )}
             
-            {/* Teacher Dashboard Link */}
             {currentUser && userRole === 'teacher' && (
               <Link to="/teacher/dashboard" className="hover:text-blue-200 font-medium">
                 Dashboard
               </Link>
             )}
 
-            {/* User Info & Logout (If logged in) */}
-            {currentUser ? (
+            {currentUser && (
               <div className="flex items-center gap-3 bg-blue-700 px-3 py-1.5 rounded-lg">
                   <span className="text-sm border-r border-blue-500 pr-3">
                   {currentUser.email || currentUser.name || 'User'}
@@ -184,9 +147,6 @@ const Navbar = () => {
                   Logout
                   </button>
               </div>
-            ) : (
-                // ❌ Login Button REMOVED globally as requested
-                null
             )}
           </div>
         </div>
